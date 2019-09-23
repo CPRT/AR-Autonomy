@@ -1,0 +1,8 @@
+
+Tests/.DS_Store
+.DS_Store
+*.plist
+*.xcuserstate
+*.plist
+*.xcworkspacedata
+Tests/openCVTest/opencvTESTING/opencvTESTING.xcodeproj/project.pbxproj
