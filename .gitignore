@@ -9,3 +9,4 @@ Tests/openCVTest/opencvTESTING/opencvTESTING.xcodeproj/project.pbxproj
 *.pbxproj
 Tests/openCVTest/blur
 Tests/openCVTest/.vscode/c_cpp_properties.json
+Tests/openCVTest/.vscode/settings.json

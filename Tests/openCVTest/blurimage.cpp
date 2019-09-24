@@ -1,21 +1,41 @@
-#include "opencv2/opencv.hpp"
+#include "opencv2/core.hpp"
+#include "opencv2/imgcodecs.hpp"
+#include "opencv2/imgproc.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/aruco.hpp"
+#include "opencv2/calib3d.hpp"
+
+#include <sstream>
+#include <iostream>
+#include <fstream>
+
+using namespace std;
 using namespace cv;
-int main(int argc, char** argv)
-{
-    VideoCapture cap;
-    // open the default camera, use something different from 0 otherwise;
-    // Check VideoCapture documentation.
-    if(!cap.open(0))
-        return 0;
-    for(;;)
-    {
-          Mat frame;
-          cap >> frame;
-          if( frame.empty() ) break; // end of video stream
-          imshow("this is you, smile! :)", frame);
-          if( waitKey(10) == 27 ) break; // stop capturing by pressing ESC 
+
+//Iterate through markers and make them images to print out
+const float calibtrationSquareDimenstion = 0.01905f; //meters
+
+int startWebcamMonitoring(){
+
+    Mat frame;
+}
+
+void createArucoMarkers(){
+    Mat outputMarker;
+
+    Ptr<aruco::Dictionary> markerDictionary = aruco::getPredefinedDictionary(aruco::PREDEFINED_DICTIONARY_NAME::DICT_4X4_50);
+
+    for(int i = 0; i < 50; i++){
+        aruco::drawMarker(markerDictionary, i, 500, outputMarker, 1);
+        ostringstream convert;
+        string imageName = "4x4Marker_";
+        convert << imageName << i << ".jpg";
+        imwrite(convert.str(), outputMarker);
     }
-    // the camera will be closed automatically upon exit
-    // cap.close();
-    return 0;
+}
+
+int main(int argv, char** argc){
+    //createArucoMarkers(); print out aruco marker
+
+
 }
