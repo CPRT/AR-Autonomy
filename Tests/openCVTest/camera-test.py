@@ -1,21 +1,26 @@
-import numpy as np
+from __future__ import print_function
 import cv2
+from ar_markers import detect_markers
 
-cap = cv2.VideoCapture(0)
 
-while(True):
-    # Capture frame-by-frame
-    ret, frame = cap.read()
+if __name__ == '__main__':
+        print('Press "q" to quit')
+        capture = cv2.VideoCapture(0)
 
-    # Our operations on the frame come here
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-   
-    # Display the resulting frame
-    cv2.imshow('frame',frame)
-    cv2.imshow('gray',gray)
-    if cv2.waitKey(20) & 0xFF == ord('q'):
-        break
+        if capture.isOpened():  # try to get the first frame
+                frame_captured, frame = capture.read()
+        else:
+                frame_captured = False
 
-# When everything done, release the capture
-cap.release()
-cv2.destroyAllWindows()
+        while frame_captured:
+                markers = detect_markers(frame)
+                for marker in markers:
+                        marker.highlite_marker(frame)
+                cv2.imshow('Test Frame', frame)
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                        break
+                frame_captured, frame = capture.read()
+
+        # When everything done, release the capture
+        capture.release()
+        cv2.destroyAllWindows()
